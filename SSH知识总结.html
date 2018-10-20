@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="起因最近部署博客和远程访问云主机经常性用到SSH这个协议，还遇到了一些问题，好在通过查资料都解决了；在查询资料的过程中发现很多文章都有些错误或者太过简略；所以我打算写下这篇文章介绍下SSH这个协议以及一些相关用法； 什么是SSHssh是Secure Shell的缩写, 是一个安全可靠的的应用层网络协议； SSH最初是UNIX系统上的一个程序，现在几乎所有的操作系统都有SSH程序;  常见的其它网络">
+<meta name="description" content="起因最近部署博客和远程访问云主机经常性用到SSH这个协议，还遇到了一些问题，好在通过查资料都解决了；在查询资料的过程中发现很多文章都有些错误或者太过简略；所以我打算写下这篇文章介绍下SSH这个协议以及一些相关用法； 什么是SSHSSH是Secure Shell的缩写, 是一个是由客户端和服务器端组成的安全可靠的的应用层网络协议； SSH协议传输层采用TCP建立连接，服务器默认端口号22。安全协议版">
 <meta name="keywords" content="linux,computerNetwork">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SSH知识总结">
 <meta property="og:url" content="http://www.lyreal666.com/SSH知识总结.html">
 <meta property="og:site_name" content="lyreal666&#39;s blog">
-<meta property="og:description" content="起因最近部署博客和远程访问云主机经常性用到SSH这个协议，还遇到了一些问题，好在通过查资料都解决了；在查询资料的过程中发现很多文章都有些错误或者太过简略；所以我打算写下这篇文章介绍下SSH这个协议以及一些相关用法； 什么是SSHssh是Secure Shell的缩写, 是一个安全可靠的的应用层网络协议； SSH最初是UNIX系统上的一个程序，现在几乎所有的操作系统都有SSH程序;  常见的其它网络">
+<meta property="og:description" content="起因最近部署博客和远程访问云主机经常性用到SSH这个协议，还遇到了一些问题，好在通过查资料都解决了；在查询资料的过程中发现很多文章都有些错误或者太过简略；所以我打算写下这篇文章介绍下SSH这个协议以及一些相关用法； 什么是SSHSSH是Secure Shell的缩写, 是一个是由客户端和服务器端组成的安全可靠的的应用层网络协议； SSH协议传输层采用TCP建立连接，服务器默认端口号22。安全协议版">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.lyreal666.com/SSH知识总结/ssh-pwd-check.png">
-<meta property="og:image" content="http://www.lyreal666.com/SSH知识总结/ssh-publickey-check.png">
-<meta property="og:updated_time" content="2018-10-20T09:16:14.812Z">
+<meta property="og:image" content="http://www.lyreal666.com/SSH知识总结/SSH-pwd-check.png">
+<meta property="og:image" content="http://www.lyreal666.com/SSH知识总结/SSH-publickey-check.png">
+<meta property="og:updated_time" content="2018-10-20T10:50:53.207Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSH知识总结">
-<meta name="twitter:description" content="起因最近部署博客和远程访问云主机经常性用到SSH这个协议，还遇到了一些问题，好在通过查资料都解决了；在查询资料的过程中发现很多文章都有些错误或者太过简略；所以我打算写下这篇文章介绍下SSH这个协议以及一些相关用法； 什么是SSHssh是Secure Shell的缩写, 是一个安全可靠的的应用层网络协议； SSH最初是UNIX系统上的一个程序，现在几乎所有的操作系统都有SSH程序;  常见的其它网络">
-<meta name="twitter:image" content="http://www.lyreal666.com/SSH知识总结/ssh-pwd-check.png">
+<meta name="twitter:description" content="起因最近部署博客和远程访问云主机经常性用到SSH这个协议，还遇到了一些问题，好在通过查资料都解决了；在查询资料的过程中发现很多文章都有些错误或者太过简略；所以我打算写下这篇文章介绍下SSH这个协议以及一些相关用法； 什么是SSHSSH是Secure Shell的缩写, 是一个是由客户端和服务器端组成的安全可靠的的应用层网络协议； SSH协议传输层采用TCP建立连接，服务器默认端口号22。安全协议版">
+<meta name="twitter:image" content="http://www.lyreal666.com/SSH知识总结/SSH-pwd-check.png">
 
 
 
@@ -366,42 +366,53 @@
 
       
         <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>最近部署博客和远程访问云主机经常性用到SSH这个协议，还遇到了一些问题，好在通过查资料都解决了；在查询资料的过程中发现很多文章都有些<code>错误</code>或者太过<code>简略</code>；所以我打算写下这篇文章介绍下SSH这个协议以及一些相关用法；</p>
-<h2 id="什么是SSH"><a href="#什么是SSH" class="headerlink" title="什么是SSH"></a>什么是SSH</h2><p><strong>ssh是</strong>Secure Shell<strong>的缩写, 是一个安全可靠的的应用层网络协议</strong>；</p>
+<h2 id="什么是SSH"><a href="#什么是SSH" class="headerlink" title="什么是SSH"></a>什么是SSH</h2><p>SSH是<strong>Secure Shell</strong>的缩写, 是一个是由客户端和服务器端组成的安全可靠的的应用层网络协议；</p>
+<p>SSH协议传输层采用<code>TCP</code>建立连接，服务器默认端口号<code>22</code>。安全协议版本是SSH2。有两个不兼容的大版本<code>1.x</code>和<code>2.x</code>，<code>1.x</code>版本又分<code>1.3</code>和<code>1.5</code>两个版本；区别：</p>
+<ol>
+<li>没有对客户端的秘钥进行校验，很容易被植入恶意代码 </li>
+<li>SSH2增加了一个确认联机正确性的Diffe_Hellman机制，每次数据的传输，Server都会检查数据来源的正确性，避免黑客入侵。SSH2支持RSA和DSA密钥 ：<ul>
+<li>DSA: digital signature Algorithm  数字签名</li>
+<li>RSA: 既可以数字签名又可以加密 </li>
+</ul>
+</li>
+</ol>
 <p>SSH最初是UNIX系统上的一个程序，现在几乎所有的操作系统都有SSH程序; </p>
 <p>常见的其它网络协议如ftp,pop,telnet,它们其实都是不安全的，因为它们的数据都是明文，如果遭到了中间人攻击，就可能造成严重损失；</p>
-<p>什么是中间人攻击?     攻击举个例子就明白了:     中间人冒充服务器接收到客户端发送的用户名和密码，即便是客户端通过hash加密，中间人无法获取真正的密码，但是服务器它认的只是你传输的数据,中间人可以直接把用户名密码或者hash加密过的密码发送给服务器，就可以控制你的服务器；</p>
-<p>ssh协议也能够防止DNS欺骗和IP欺骗；使用SSH，还有一个额外的好处就是传输的数据是经过压缩的，所以可以加快传输的速度。SSH有很多功能，它既可以代替telnet，又可以为ftp, pop甚至为ppp提供一个安全的”通道” 。</p>
-<h2 id="为什么SSH是安全的"><a href="#为什么SSH是安全的" class="headerlink" title="为什么SSH是安全的"></a>为什么SSH是安全的</h2><p>上一节一直说SSH是多么的安全可靠；那么，为什么说SSH协议是安全的呢? 我想从<code>验证</code>和<code>传输</code>两个角度来说；</p>
-<h3 id="SSH的验证方式"><a href="#SSH的验证方式" class="headerlink" title="SSH的验证方式"></a>SSH的验证方式</h3><p>要想看懂验证方式必须先懂几个概念: <code>对称加密</code>,<code>非对称加密</code>；这里简要介绍一下:</p>
+<p>什么是中间人攻击?     攻击举个例子就明白了: </p>
+<p>中间人冒充服务器接收到客户端发送的用户名和密码，即便是客户端通过hash加密，中间人无法获取真正的密码，但是服务器它认的只是你传输的数据,中间人可以直接把用户名密码或者hash加密过的密码发送给服务器，就可以控制你的服务器；</p>
+<p>SSH协议也能够防止DNS欺骗和IP欺骗；使用SSH，还有一个额外的好处就是传输的数据是经过压缩的，所以可以加快传输的速度。SSH有很多功能，它既可以代替telnet，又可以为ftp, pop甚至为ppp提供一个安全的”通道” 。</p>
+<h2 id="SSH的验证方式"><a href="#SSH的验证方式" class="headerlink" title="SSH的验证方式"></a>SSH的验证方式</h2><p>要想看懂SSH验证方式必须先懂几个概念: <code>对称加密</code>,<code>非对称加密</code>；这里简要介绍一下:</p>
 <ol>
-<li><p>对称加密: 加密和解密用同一把密钥的加密方式。就是大家最能想到的那种普通的加密方式, 用一个密码加密，同一个密码解密，这种加密方式的加密强度和密码的长度有关，密码越长越1mb长度的密码肯定比1bit密码强度高；</p>
+<li><p>对称加密: 加密和解密用同一把密钥的加密方式。就是大家最能想到的那种普通的加密方式, 用一个密码加密，同一个密码解密，这种加密方式的加密强度和密码的长度有关，密码越长越1mb长度的密码肯定比1bit密码强度高，常用来加密传输的数据；</p>
 </li>
-<li><p>非对称加密: 非对称加密指的是加密和解密用的不是一把钥匙的加密方式；一把叫私钥(privateKey)，不能公开，用来解密或签名；一把叫公钥(publicKey)，可以公开在网络上传输，用来解密或验证签名; 加密数据既可以用公钥也可以用私钥，但必须使用同一个算法下对应的私钥或公钥才能解密；它们总是成对的，一个加密，一个解密；</p>
+<li><p>非对称加密: 非对称加密指的是加密和解密用的不是一把钥匙的加密方式；一把叫私钥(privateKey)，不能公开，用来解密或签名；一把叫公钥(publicKey)，可以公开在网络上传输，用来解密或验证签名; 加密数据既可以用公钥也可以用私钥，但必须使用同一个算法下对应的私钥或公钥才能解密；它们总是成对的，一个加密，一个解密；由于私钥总是不公开的，所以非对称加密是很可靠的。但是解密速度比较慢，所以常用于交换信息，比如加密对称加密的密码</p>
 <p>加密和签名是非对称加密的两个常见应用场景, 它们是有区别的:</p>
 <ol>
-<li><p>加密时: 公钥    加密    明文    =&gt;    密文</p>
-<p>​               私钥    解密   密文    =&gt;    明文</p>
+<li><p>加密时: </p>
+<p>公钥加密明文    =&gt;    密文；</p>
+<p> 私钥解密密文    =&gt;    明文；</p>
 <p>加密是不能用私钥加密的，接收方并不知道用哪个公钥解密，你可能会说可以告诉接收方用哪个公钥解密，但是这样避免不了中间人攻击；一般是用接收方发送给发送方的的公钥加密，然后接收方接收后用私钥解密；</p>
 </li>
-<li><p>签名时: 私钥    加密    内容    =&gt;    签名</p>
-<p>​               公钥   解密  签名    =&gt;     解密得到的内容    比对    发送过来的内容；</p>
-<p>签名是为了接收方确定接收内容来源是否可靠；如果采用用公钥加密私钥解密，因为公钥是公开的, 那所有获得公钥的人都可以冒充发送方发送数据给接收方。可靠的发送方用私钥加密, 接收方用保存的可信赖方的公钥解密，如果解密内容和接收内容一样，来源可靠，不可信赖来源发送的内容用我保存的可信赖方的公钥解密是和内容不一样的，从而确保接收的内容的来源是可靠的；</p>
-<p>​               </p>
+<li><p>签名时:</p>
+<p> 私钥加密内容    =&gt;    签名；</p>
+<p> 公钥解密签名   =&gt;    解密得到的内容比对发送过来的内容；</p>
+<p>签名是为了接收方确定接收内容来源是否可靠；如果采用用公钥加密私钥解密，因为公钥是公开的, 那所有获得公钥的人都可以冒充发送方发送数据给接收方。可靠的发送方用私钥加密, 接收方用保存的可信赖方的公钥解密，如果解密内容和接收内容一样，来源可靠，不可信赖来源发送的内容用我保存的可信赖方的公钥解密是和内容不一样的，从而确保接收的内容的来源是可靠的;</p>
+<p>​           </p>
 </li>
 </ol>
 </li>
 </ol>
-<p>ssh协议的验证方式有两种， 都有用到<code>非对称加密</code>:</p>
+<p>SSH协议的验证方式有两种， 都有用到<code>非对称加密</code>:</p>
 <ol>
 <li>用户名密码登入。 使用公钥对用户密码加密。</li>
 <li>公钥认证。和数字签名原理一样，只不过用来验证的内容是服务器发送的随机字符串；</li>
 </ol>
-<h4 id="用户名密码登入"><a href="#用户名密码登入" class="headerlink" title="用户名密码登入"></a>用户名密码登入</h4><p><img src="/SSH知识总结/ssh-pwd-check.png" alt="用户名密码验证"></p>
+<h4 id="用户名密码登入"><a href="#用户名密码登入" class="headerlink" title="用户名密码登入"></a>用户名密码登入</h4><p><img src="/SSH知识总结/SSH-pwd-check.png" alt="用户名密码验证"></p>
 <p>说明：</p>
-<p>　　（1） 当客户端发起ssh请求，服务器会把自己的公钥发送给用户；</p>
+<p>　　（1） 当客户端发起SSH请求，服务器会把自己的公钥发送给用户；</p>
 <p>　　（2） 用户会根据服务器发来的公钥对密码进行加密；</p>
 <p>　　（3） 加密后的信息回传给服务器，服务器用自己的私钥解密，如果密码正确，则用户登录成功。</p>
-<h4 id="公钥验证（解密"><a href="#公钥验证（解密" class="headerlink" title="公钥验证（解密)"></a>公钥验证（解密)</h4><p><img src="/SSH知识总结/ssh-publickey-check.png" alt="公钥验证">说明：</p>
+<h4 id="公钥验证（解密"><a href="#公钥验证（解密" class="headerlink" title="公钥验证（解密)"></a>公钥验证（解密)</h4><p><img src="/SSH知识总结/SSH-publickey-check.png" alt="公钥验证">说明：</p>
 <p>　　（1） 首先在客户端生成一对密钥（ssh-keygen）；</p>
 <p>　　（2） 并将客户端的公钥ssh-copy-id 拷贝到服务端；</p>
 <p>　　（3） 当客户端再次发送一个连接请求，包括ip、用户名；</p>
@@ -409,6 +420,18 @@
 <p>　　（5） 服务端将使用客户端拷贝过来的公钥进行加密，然后发送给客户端；</p>
 <p>　　（6） 得到服务端发来的消息后，客户端会使用私钥进行解密，然后将解密后的字符串发送给服务端；</p>
 <p>　　（7） 服务端接受到客户端发来的字符串后，跟之前的字符串进行对比，如果一致，就允许免密码登录。</p>
+<h2 id="SSH实际应用"><a href="#SSH实际应用" class="headerlink" title="SSH实际应用"></a>SSH实际应用</h2><p>实际应用中我们常用SSH来远程控制，或者传输文件；github或者coding等远程git仓库都可以选择使用SSH方式进行上传下载；</p>
+<p>下面具体讲讲这两种应用的实际操作:</p>
+<h3 id="远程控制"><a href="#远程控制" class="headerlink" title="远程控制"></a>远程控制</h3><p>ssh服务是一个守护进程(demon)，系统后台监听客户端的连接，ssh服务端的进程名为sshd,负责实时监听客户端的请求(IP 22端口)，包括公共秘钥等交换等信息。</p>
+<p>ssh服务端由2部分组成： openssh(提供ssh服务)    openssl(提供加密的程序)</p>
+<p>ssh的客户端可以用 XSHELL，Securecrt, Mobaxterm等工具进行连接。其实只要系统安装了SSH程序就可以通过系统终端访问；Windows上可以直接通过cmd或者powerShell使用，也可以用gitbash或者是cygwin等linux环境；</p>
+<p>使用SSH建立远程连接的命令是:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh username@ip</span><br></pre></td></tr></table></figure>
+<p>如果为设置公钥访问一般会要求输入密码；每次登入都要输密码，这是个麻烦事，所以我们一般都会配置公钥访问。配置公钥访问主要分两步:</p>
+<h4 id="第一步-生产密钥对"><a href="#第一步-生产密钥对" class="headerlink" title="第一步: 生产密钥对"></a>第一步: 生产密钥对</h4><p>生成密钥对可以使用<code>ssh-keygen</code>这个程序指定各种参数生产你想要的密钥对:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa  -b key_length -f identityFile -C youremail.com</span><br></pre></td></tr></table></figure>
+<p><code>-t</code> 即type指定密钥算法，<code>b</code> 即bit指定密钥长度，至少<code>768</code>位才是安全的，因为目前被破解的最长的RSA密钥长度就是768bit。 ssh-keygen默认就是2048bit位; <code>f</code>指定私钥文件，<code>-c</code> 即comment指定提示文字；</p>
+<p>。。。</p>
 
       
     </div>
@@ -610,7 +633,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#起因"><span class="nav-number">1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是SSH"><span class="nav-number">2.</span> <span class="nav-text">什么是SSH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么SSH是安全的"><span class="nav-number">3.</span> <span class="nav-text">为什么SSH是安全的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SSH的验证方式"><span class="nav-number">3.1.</span> <span class="nav-text">SSH的验证方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用户名密码登入"><span class="nav-number">3.1.1.</span> <span class="nav-text">用户名密码登入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#公钥验证（解密"><span class="nav-number">3.1.2.</span> <span class="nav-text">公钥验证（解密)</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#起因"><span class="nav-number">1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是SSH"><span class="nav-number">2.</span> <span class="nav-text">什么是SSH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH的验证方式"><span class="nav-number">3.</span> <span class="nav-text">SSH的验证方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用户名密码登入"><span class="nav-number">3.0.1.</span> <span class="nav-text">用户名密码登入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#公钥验证（解密"><span class="nav-number">3.0.2.</span> <span class="nav-text">公钥验证（解密)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH实际应用"><span class="nav-number">4.</span> <span class="nav-text">SSH实际应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#远程控制"><span class="nav-number">4.1.</span> <span class="nav-text">远程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步-生产密钥对"><span class="nav-number">4.1.1.</span> <span class="nav-text">第一步: 生产密钥对</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
