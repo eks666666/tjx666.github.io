@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="起因最近部署博客和远程访问云主机经常性用到SSH这个协议，还遇到了一些问题，好在通过查资料都解决了；在查询资料的过程中发现很多文章都有些错误或者太过简略；所以我打算写下这篇文章介绍下SSH这个协议以及一些相关用法； 什么是SSHSSH是Secure Shell的缩写, 是一个是由客户端和服务器端组成的安全可靠的的应用层网络协议； SSH协议传输层采用TCP建立连接，服务器默认端口号22。安全协议版">
+<meta name="description" content="最近部署博客和远程访问云主机经常性用到SSH这个协议，还遇到了一些问题，好在通过查资料都解决了；在查询资料的过程中发现很多文章都有些错误或者太过简略；所以我打算写下这篇文章介绍下SSH这个协议以及一些相关用法；">
 <meta name="keywords" content="linux,computerNetwork">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SSH知识总结">
 <meta property="og:url" content="http://www.lyreal666.com/SSH知识总结.html">
 <meta property="og:site_name" content="lyreal666&#39;s blog">
-<meta property="og:description" content="起因最近部署博客和远程访问云主机经常性用到SSH这个协议，还遇到了一些问题，好在通过查资料都解决了；在查询资料的过程中发现很多文章都有些错误或者太过简略；所以我打算写下这篇文章介绍下SSH这个协议以及一些相关用法； 什么是SSHSSH是Secure Shell的缩写, 是一个是由客户端和服务器端组成的安全可靠的的应用层网络协议； SSH协议传输层采用TCP建立连接，服务器默认端口号22。安全协议版">
+<meta property="og:description" content="最近部署博客和远程访问云主机经常性用到SSH这个协议，还遇到了一些问题，好在通过查资料都解决了；在查询资料的过程中发现很多文章都有些错误或者太过简略；所以我打算写下这篇文章介绍下SSH这个协议以及一些相关用法；">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://www.lyreal666.com/SSH知识总结/SSH-pwd-check.png">
 <meta property="og:image" content="http://www.lyreal666.com/SSH知识总结/SSH-publickey-check.png">
-<meta property="og:updated_time" content="2018-10-20T10:50:53.207Z">
+<meta property="og:updated_time" content="2018-10-20T14:44:48.210Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSH知识总结">
-<meta name="twitter:description" content="起因最近部署博客和远程访问云主机经常性用到SSH这个协议，还遇到了一些问题，好在通过查资料都解决了；在查询资料的过程中发现很多文章都有些错误或者太过简略；所以我打算写下这篇文章介绍下SSH这个协议以及一些相关用法； 什么是SSHSSH是Secure Shell的缩写, 是一个是由客户端和服务器端组成的安全可靠的的应用层网络协议； SSH协议传输层采用TCP建立连接，服务器默认端口号22。安全协议版">
+<meta name="twitter:description" content="最近部署博客和远程访问云主机经常性用到SSH这个协议，还遇到了一些问题，好在通过查资料都解决了；在查询资料的过程中发现很多文章都有些错误或者太过简略；所以我打算写下这篇文章介绍下SSH这个协议以及一些相关用法；">
 <meta name="twitter:image" content="http://www.lyreal666.com/SSH知识总结/SSH-pwd-check.png">
 
 
@@ -365,11 +365,12 @@
       
 
       
-        <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>最近部署博客和远程访问云主机经常性用到SSH这个协议，还遇到了一些问题，好在通过查资料都解决了；在查询资料的过程中发现很多文章都有些<code>错误</code>或者太过<code>简略</code>；所以我打算写下这篇文章介绍下SSH这个协议以及一些相关用法；</p>
+        <p>最近部署博客和远程访问云主机经常性用到SSH这个协议，还遇到了一些问题，好在通过查资料都解决了；在查询资料的过程中发现很多文章都有些<code>错误</code>或者太过<code>简略</code>；所以我打算写下这篇文章介绍下SSH这个协议以及一些相关用法；</p>
+<a id="more"></a>
 <h2 id="什么是SSH"><a href="#什么是SSH" class="headerlink" title="什么是SSH"></a>什么是SSH</h2><p>SSH是<strong>Secure Shell</strong>的缩写, 是一个是由客户端和服务器端组成的安全可靠的的应用层网络协议；</p>
 <p>SSH协议传输层采用<code>TCP</code>建立连接，服务器默认端口号<code>22</code>。安全协议版本是SSH2。有两个不兼容的大版本<code>1.x</code>和<code>2.x</code>，<code>1.x</code>版本又分<code>1.3</code>和<code>1.5</code>两个版本；区别：</p>
 <ol>
-<li>没有对客户端的秘钥进行校验，很容易被植入恶意代码 </li>
+<li>SSH1没有对客户端的秘钥进行校验，很容易被植入恶意代码 </li>
 <li>SSH2增加了一个确认联机正确性的Diffe_Hellman机制，每次数据的传输，Server都会检查数据来源的正确性，避免黑客入侵。SSH2支持RSA和DSA密钥 ：<ul>
 <li>DSA: digital signature Algorithm  数字签名</li>
 <li>RSA: 既可以数字签名又可以加密 </li>
@@ -377,8 +378,8 @@
 </li>
 </ol>
 <p>SSH最初是UNIX系统上的一个程序，现在几乎所有的操作系统都有SSH程序; </p>
-<p>常见的其它网络协议如ftp,pop,telnet,它们其实都是不安全的，因为它们的数据都是明文，如果遭到了中间人攻击，就可能造成严重损失；</p>
-<p>什么是中间人攻击?     攻击举个例子就明白了: </p>
+<p>常见的其它网络协议如ftp,pop,telnet,它们其实都是不安全的，因为它们传输的数据都是明文，如果遭到了中间人攻击，就可能造成严重损失；</p>
+<p>什么是中间人攻击?     举个例子就明白了: </p>
 <p>中间人冒充服务器接收到客户端发送的用户名和密码，即便是客户端通过hash加密，中间人无法获取真正的密码，但是服务器它认的只是你传输的数据,中间人可以直接把用户名密码或者hash加密过的密码发送给服务器，就可以控制你的服务器；</p>
 <p>SSH协议也能够防止DNS欺骗和IP欺骗；使用SSH，还有一个额外的好处就是传输的数据是经过压缩的，所以可以加快传输的速度。SSH有很多功能，它既可以代替telnet，又可以为ftp, pop甚至为ppp提供一个安全的”通道” 。</p>
 <h2 id="SSH的验证方式"><a href="#SSH的验证方式" class="headerlink" title="SSH的验证方式"></a>SSH的验证方式</h2><p>要想看懂SSH验证方式必须先懂几个概念: <code>对称加密</code>,<code>非对称加密</code>；这里简要介绍一下:</p>
@@ -420,18 +421,97 @@
 <p>　　（5） 服务端将使用客户端拷贝过来的公钥进行加密，然后发送给客户端；</p>
 <p>　　（6） 得到服务端发来的消息后，客户端会使用私钥进行解密，然后将解密后的字符串发送给服务端；</p>
 <p>　　（7） 服务端接受到客户端发来的字符串后，跟之前的字符串进行对比，如果一致，就允许免密码登录。</p>
-<h2 id="SSH实际应用"><a href="#SSH实际应用" class="headerlink" title="SSH实际应用"></a>SSH实际应用</h2><p>实际应用中我们常用SSH来远程控制，或者传输文件；github或者coding等远程git仓库都可以选择使用SSH方式进行上传下载；</p>
-<p>下面具体讲讲这两种应用的实际操作:</p>
-<h3 id="远程控制"><a href="#远程控制" class="headerlink" title="远程控制"></a>远程控制</h3><p>ssh服务是一个守护进程(demon)，系统后台监听客户端的连接，ssh服务端的进程名为sshd,负责实时监听客户端的请求(IP 22端口)，包括公共秘钥等交换等信息。</p>
+<h2 id="SSH实际应用"><a href="#SSH实际应用" class="headerlink" title="SSH实际应用"></a>SSH实际应用</h2><p>实际应用中我们常用SSH来安全的进行远程控制，或者传输文件；github或coding等远程git仓库都可以选择使用SSH方式进行上传下载；</p>
+<h3 id="远程控制"><a href="#远程控制" class="headerlink" title="远程控制"></a>远程控制</h3><p>使用ssh进行远程控制要求服务器一定要安装openssh-server或sshd。可以通过下面命令测试linux系统有没有安装ssh服务器:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service sshd status</span><br><span class="line"><span class="meta">#</span> 出现 Loader error(Reason: no such file or directory) 表示没安装</span><br><span class="line"><span class="meta">#</span> 出现 Active: inactive(dead) 表示安装了，但是没开启</span><br></pre></td></tr></table></figure>
+<p>ssh服务是一个守护进程(demon)，系统后台监听客户端的连接，ssh服务端的进程名为sshd,负责实时监听客户端的请求(IP 22端口)，包括公共秘钥等交换等信息。</p>
 <p>ssh服务端由2部分组成： openssh(提供ssh服务)    openssl(提供加密的程序)</p>
 <p>ssh的客户端可以用 XSHELL，Securecrt, Mobaxterm等工具进行连接。其实只要系统安装了SSH程序就可以通过系统终端访问；Windows上可以直接通过cmd或者powerShell使用，也可以用gitbash或者是cygwin等linux环境；</p>
 <p>使用SSH建立远程连接的命令是:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh username@ip</span><br></pre></td></tr></table></figure>
-<p>如果为设置公钥访问一般会要求输入密码；每次登入都要输密码，这是个麻烦事，所以我们一般都会配置公钥访问。配置公钥访问主要分两步:</p>
-<h4 id="第一步-生产密钥对"><a href="#第一步-生产密钥对" class="headerlink" title="第一步: 生产密钥对"></a>第一步: 生产密钥对</h4><p>生成密钥对可以使用<code>ssh-keygen</code>这个程序指定各种参数生产你想要的密钥对:</p>
+<p>可以使用<code>-p</code>参数指定端口号。如果没有设置公钥访问一般会要求输入密码；每次登入都要输密码，这是个麻烦事，所以我们一般都会配置公钥访问。配置公钥访问主要分两步:</p>
+<h4 id="第一步-生成密钥对"><a href="#第一步-生成密钥对" class="headerlink" title="第一步: 生成密钥对"></a>第一步: 生成密钥对</h4><p>进入<code>.ssh</code>文件夹,:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ~/.ssh/</span><br></pre></td></tr></table></figure>
+<p>这样的话使用<code>-f</code>参数指定私钥路径时不用加上<code>.ssh</code>文件夹路径了。</p>
+<p>生成密钥对可以使用<code>ssh-keygen</code>这个程序指定各种参数生成你想要的密钥对,一般格式如下:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa  -b key_length -f identityFile -C youremail.com</span><br></pre></td></tr></table></figure>
-<p><code>-t</code> 即type指定密钥算法，<code>b</code> 即bit指定密钥长度，至少<code>768</code>位才是安全的，因为目前被破解的最长的RSA密钥长度就是768bit。 ssh-keygen默认就是2048bit位; <code>f</code>指定私钥文件，<code>-c</code> 即comment指定提示文字；</p>
-<p>。。。</p>
+<p>实例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lyreal666@DESKTOP-FMIHTUE MINGW64 ~/Desktop</span><br><span class="line"><span class="meta">$</span> ssh-keygen -t rsa -b 4096 -f my_id_rsa -C "2713151718@qq.com"</span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter passphrase (empty for no passphrase):</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>-t</code> 即type指定密钥算法</li>
+<li><code>b</code> 即bit指定密钥长度，至少<code>768</code>位才是安全的，因为目前被破解的最长的RSA密钥长度就是768bit。 ssh-keygen默认就是2048bit位;</li>
+<li><code>f</code>指定私钥文件，</li>
+<li><code>-c</code> 即comment指定提示文字；</li>
+</ul>
+<p>然后后提示你输入加密密钥的密码。直接回车就是不需要密码，如果对安全性要求不是特别高那就别设置加密密钥的密码了，不然的话即使配置了ssh免密码登入还要输一次密钥加密密码。</p>
+<p>输入密码两次后会在当前文件夹(如果没有指定路径的话)产生两个密钥文件。<code>.pub</code>结尾的就是生成的公钥文件；</p>
+<h4 id="第二步-把公钥放到服务器上"><a href="#第二步-把公钥放到服务器上" class="headerlink" title="第二步: 把公钥放到服务器上"></a>第二步: 把公钥放到服务器上</h4><p>把公钥放到服务器上一般有两种方式:</p>
+<ol>
+<li><p>使用<code>ssh-copy-id</code>的程序:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id -i identityFile username@ip</span><br></pre></td></tr></table></figure>
+<p>使用<code>-i</code>指定公钥文件路径，这个程序会执行一系列批处理命令将公钥文件内容追加到服务器的<code>~/.ssh/authorized_keys</code>文件末尾，使用这个命令时会要求输入密码，按要求操作即可， 操作成功后会提示你使用<code>ssh username@ip</code>的方式免密码登入；</p>
+</li>
+<li><p>第二种方式就很直接了，先用密码登入服务器，再把本地的公钥文件内容手动复制追加到服务器的<code>~/.ssh/authorized_keys</code>末尾</p>
+</li>
+</ol>
+<p>注意事项:</p>
+<ol>
+<li><code>.pub</code>结尾的公钥文件一般是两行，第一行是很长的密码，第二行是一个空行，手动追加是要把第二行也一并复制过去；</li>
+<li>第一种方式如果不指定<code>-i</code>参数，默认是拷贝<code>~/.ssh/id_rsa.pub</code></li>
+<li>由于手动复制误操作的可能性较大，推荐用第一种方式</li>
+</ol>
+<p>通过上面两步，然后就可以使用<code>ssh username@ip</code>免密码直接登入了；</p>
+<h3 id="Git远程托管平台如何配置免密码上传文件"><a href="#Git远程托管平台如何配置免密码上传文件" class="headerlink" title="Git远程托管平台如何配置免密码上传文件"></a>Git远程托管平台如何配置免密码上传文件</h3><p>作为一个开发者，<code>git</code>是必不可少代码管理工具，平时也少不了要和git仓库托管平台如<code>github</code>, <code>coding</code>, <code>gitee</code>, <code>gitlab</code>打交道；选择<code>http</code>协议是没办法配置免密码上传文件的, 但是一般这些平台都会提供<code>http</code>和<code>ssh</code>两种协议来进行文件传输；在这些平台使用ssh协议来传输文件的第一件事就是配置SSH密钥；具体做法和上面的很类似；</p>
+<ol>
+<li><p>在本地生成密钥, 和生成密钥方式上面的一模一样；</p>
+</li>
+<li><p>拷贝密钥到托管平台，一般在托管平台的设置中找找就能找到添加SSH密钥的地方；</p>
+</li>
+<li><p>使用<code>ssh -T git@hostname</code>命令测试连接是否成功比如:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">lyreal666@DESKTOP-FMIHTUE MINGW64 ~/.ssh</span><br><span class="line"><span class="meta">$</span> ssh -T gitss@github.com</span><br><span class="line">gitss@github.com: Permission denied (publickey).</span><br><span class="line"></span><br><span class="line">lyreal666@DESKTOP-FMIHTUE MINGW64 ~/.ssh</span><br><span class="line"><span class="meta">$</span> ssh -T git@github.com</span><br><span class="line">Hi tjx666! You've successfully authenticated, but GitHub does not provide shell access.</span><br><span class="line"></span><br><span class="line">lyreal666@DESKTOP-FMIHTUE MINGW64 ~/.ssh</span><br><span class="line"><span class="meta">$</span> ssh -T git@git.coding.net</span><br><span class="line">Coding 提示: Hello tjx666, You've connected to Coding.net via SSH. This is a personal key.</span><br><span class="line">tjx666，你好，你已经通过 SSH 协议认证 Coding.net 服务，这是一个个人公钥</span><br><span class="line"></span><br><span class="line">lyreal666@DESKTOP-FMIHTUE MINGW64 ~/.ssh</span><br><span class="line"><span class="meta">$</span> ssh -T -v gitss@github.com</span><br><span class="line">OpenSSH_7.7p1, OpenSSL 1.0.2o  27 Mar 2018</span><br><span class="line">debug1: Reading configuration data /etc/ssh/ssh_config</span><br><span class="line">debug1: Connecting to github.com [192.30.253.113] port 22.</span><br><span class="line">debug1: Connection established.</span><br><span class="line">debug1: identity file /c/Users/lyreal666/.ssh/id_rsa type 0</span><br><span class="line">debug1: key_load_public: No such file or directory</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>PS: 我们可以使用<code>-v</code>参数查看整个<code>ssh</code>认证过程查看认证不成功的原因在哪;</p>
+<h3 id="ssh-add"><a href="#ssh-add" class="headerlink" title="ssh-add"></a>ssh-add</h3><p><code>ssh-agent</code>用于管理 ssh private keys，目的是对解密的私钥进行高速缓存。</p>
+<p>配置了多套密钥，再测试和服务器的连通性的时候，查看测试结果发现ssh程序每次使用的私钥都是默认的那把,根本不会使用新添加的私钥和服务器做认证，那是因为默认情况下用来和服务器进行认证的密钥是<code>~/.ssh/id_rsa</code>这个文件，当你添加新的一对密钥时，需要手动将私钥添加进<code>ssh-agent</code>,<code>ssh-add</code>这个命令就是添加私钥到<code>ssh-agent</code>的，这样，在多套密钥的情况下就会使用<code>ssh-agent</code>维护列表中的私钥去和对应的服务器做认证；</p>
+<p>ssh-add 提示并将用户使用的私钥添加到 ssh-agent 维护列表中，此后当公钥连接到远程 SSH 或 SCP 主机时，不再提示信息。</p>
+<ol>
+<li>启动</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval $(ssh-agent) &gt; /dev/null</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>把专有密钥添加到 ssh-agent 中</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-add ~./ssh/id_dsa1</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>从 ssh-agent 中删除密钥</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-add -d ./ssh/id_xxx.pub1</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>查看 ssh-agent 中的密钥</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-add -l</span><br></pre></td></tr></table></figure>
+<h3 id="聊聊-ssh-文件夹"><a href="#聊聊-ssh-文件夹" class="headerlink" title="聊聊~/.ssh/文件夹"></a>聊聊~/.ssh/文件夹</h3><p>​    下面是客户端文件夹</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">lyreal666@DESKTOP-FMIHTUE MINGW64 ~/Desktop</span><br><span class="line"><span class="meta">$</span> cd ~/.ssh</span><br><span class="line">lyreal666@DESKTOP-FMIHTUE MINGW64 ~/.ssh</span><br><span class="line"><span class="meta">$</span> ls -lah</span><br><span class="line">total 58K</span><br><span class="line">drwxr-xr-x 1 lyreal666 197609    0 10月 18 20:49 ./</span><br><span class="line">drwxr-xr-x 1 lyreal666 197609    0 10月 18 22:13 ../</span><br><span class="line">-rw-r--r-- 1 lyreal666 197609 3.2K 10月 18 19:26 coding_id_rsa</span><br><span class="line">-rw-r--r-- 1 lyreal666 197609  743 10月 18 19:26 coding_id_rsa.pub</span><br><span class="line">-rw-r--r-- 1 lyreal666 197609 1.7K 9月  12 10:47 id_rsa</span><br><span class="line">-rw-r--r-- 1 lyreal666 197609  399 9月  12 10:47 id_rsa.pub</span><br><span class="line">-rw-r--r-- 1 lyreal666 197609 1.8K 10月 18 21:51 known_hosts</span><br><span class="line">-rw-r--r-- 1 lyreal666 197609  399 10月 18 20:24 config</span><br><span class="line">-rw-r--r-- 1 lyreal666 197609 3.2K 10月 18 19:22 tencent_id_rsa</span><br><span class="line">-rw-r--r-- 1 lyreal666 197609  743 10月 18 19:22 tencent_id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>SSH程序的各种数据都存放在在用户家目录下面的.ssh文件夹，windows平台的话一般存放在C:\Users\username.ssh。<code>id_rsa</code>结尾的文件表示这是一个是私钥文文件，当然私钥文件可以取任意名字，不过我觉得还是以id_rsa结尾好。以<code>.pub</code>结尾是公钥文件，一个私钥对应的公钥文件一般是其文件名加<code>.pub</code>因为生成公钥时是没法指定文件名的；</p>
+<p><code>known_hosts</code>文件记录了你访问的服务器的域名或ip以及密钥信息。以便下次访问，如果第一次访问服务器, 可能会出现像下面这样警告:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ssh root@121.43.166.172</span><br><span class="line">The authenticity of host '121.43.166.172 (121.43.166.172)' can't be established.</span><br><span class="line">ECDSA key fingerprint is SHA256:oeo2WeQieRUkyokOF6MIoGcx31GtWRwB7p7dHxqg17s.</span><br><span class="line">Are you sure you want to continue connecting (yes/no)? yes</span><br><span class="line">Warning: Permanently added '121.43.166.172' (ECDSA) to the list of known hosts.</span><br><span class="line">root@121.43.166.172's password:</span><br></pre></td></tr></table></figure>
+<p>直接输入yes继续操作，删掉没有关系，只不过下次访问时就和第一次访问一样会有上面的警告。</p>
+<p><code>config</code>文件是SSH的配置文件,使用config文件可以更方便更精确的配置SSH程序怎样访问某个服务器,下面给出一个示例:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Host</span> <span class="string">coding</span></span><br><span class="line">    <span class="string">HostName</span> <span class="string">git.coding.net</span></span><br><span class="line">    <span class="string">User</span> <span class="string">lyreal666</span></span><br><span class="line">    <span class="string">IdentityFile</span> <span class="string">~/.ssh/coding_id_rsa</span></span><br><span class="line"></span><br><span class="line"><span class="string">Host</span> <span class="string">github</span></span><br><span class="line">    <span class="string">HostName</span> <span class="string">github.com</span></span><br><span class="line">    <span class="string">User</span> <span class="string">tjx666</span></span><br><span class="line">    <span class="string">IdentityFile</span> <span class="string">~/.ssh/id_rsa</span></span><br><span class="line"></span><br><span class="line"><span class="string">Host</span> <span class="string">aubt</span></span><br><span class="line">    <span class="string">HostName</span> <span class="number">121.43</span><span class="number">.255</span><span class="number">.172</span></span><br><span class="line">    <span class="string">User</span> <span class="string">root</span></span><br><span class="line">    <span class="string">IdentityFile</span> <span class="string">~/.ssh/aliyun-ubuntu_id_rsa</span></span><br><span class="line"></span><br><span class="line"><span class="string">Host</span> <span class="string">tencent</span></span><br><span class="line">    <span class="string">HostName</span>  <span class="string">git.dev.tencent.com</span></span><br><span class="line">    <span class="string">User</span> <span class="string">tjx666</span></span><br><span class="line">    <span class="string">IdentityFile</span> <span class="string">~/.ssh/tencent_id_rsa</span></span><br></pre></td></tr></table></figure>
+<p>解释一下配置参数:</p>
+<ul>
+<li><p>Host: 可以随便取，相当于你对某个服务器的配置取一个名字,比如下次你想登入上面的ip为121.43.255.172的云主机，可以直接使用下面的命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh aubt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>HostName: 表示你访问的服务器的域名或ip;</p>
+</li>
+<li><p>User: 你访问使用的用户名</p>
+</li>
+<li><p>IdentityFile: 你访问服务器使用的私钥文件路径</p>
+</li>
+</ul>
+<p>可以看到使用<code>cnofig</code>文件管理多套密钥很方便，SSH这个程序还是很人性化的。如果配置格式有误，使用SSH程序时会报错；</p>
 
       
     </div>
@@ -584,7 +664,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -633,7 +713,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#起因"><span class="nav-number">1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是SSH"><span class="nav-number">2.</span> <span class="nav-text">什么是SSH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH的验证方式"><span class="nav-number">3.</span> <span class="nav-text">SSH的验证方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用户名密码登入"><span class="nav-number">3.0.1.</span> <span class="nav-text">用户名密码登入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#公钥验证（解密"><span class="nav-number">3.0.2.</span> <span class="nav-text">公钥验证（解密)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH实际应用"><span class="nav-number">4.</span> <span class="nav-text">SSH实际应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#远程控制"><span class="nav-number">4.1.</span> <span class="nav-text">远程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步-生产密钥对"><span class="nav-number">4.1.1.</span> <span class="nav-text">第一步: 生产密钥对</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是SSH"><span class="nav-number">1.</span> <span class="nav-text">什么是SSH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH的验证方式"><span class="nav-number">2.</span> <span class="nav-text">SSH的验证方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用户名密码登入"><span class="nav-number">2.0.1.</span> <span class="nav-text">用户名密码登入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#公钥验证（解密"><span class="nav-number">2.0.2.</span> <span class="nav-text">公钥验证（解密)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH实际应用"><span class="nav-number">3.</span> <span class="nav-text">SSH实际应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#远程控制"><span class="nav-number">3.1.</span> <span class="nav-text">远程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步-生成密钥对"><span class="nav-number">3.1.1.</span> <span class="nav-text">第一步: 生成密钥对</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二步-把公钥放到服务器上"><span class="nav-number">3.1.2.</span> <span class="nav-text">第二步: 把公钥放到服务器上</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git远程托管平台如何配置免密码上传文件"><span class="nav-number">3.2.</span> <span class="nav-text">Git远程托管平台如何配置免密码上传文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh-add"><span class="nav-number">3.3.</span> <span class="nav-text">ssh-add</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聊聊-ssh-文件夹"><span class="nav-number">3.4.</span> <span class="nav-text">聊聊~/.ssh/文件夹</span></a></li></ol></li></ol></div>
             
 
           </div>
