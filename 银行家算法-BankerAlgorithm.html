@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="ytj, lyreal666, blog, nodejs, java " />
+  <meta name="keywords" content="algorithm," />
 
 
 
@@ -79,17 +79,20 @@
 
 
 
-<meta name="description" content="爱好编程的大三dog">
-<meta name="keywords" content="blog,javascript, nodejs, java, react">
-<meta property="og:type" content="website">
-<meta property="og:title" content="lyreal666&#39;s blog">
-<meta property="og:url" content="http://www.lyreal666.com/index.html">
+<meta name="description" content="最近上操作系统课解决死锁一节时，碰到了银行家算法这个算法。由于这个算法涉及的概念比较多，所以一开始在用编程实现这个算法的时候有点不知道怎样下手，在查了一些资料后总算是比较完美的写出来，这篇文章主要梳理一下银行家算法的几个关键点。完整的实验的源代码和测试截图我放到github上了。如果对你有帮助，希望不要吝啬你的star。 银行家算法能解决可以什么问题其实我在学习编程的过程中，一直保持着这样一个原则">
+<meta name="keywords" content="algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="银行家算法(BankerAlgorithm)">
+<meta property="og:url" content="http://www.lyreal666.com/银行家算法-BankerAlgorithm.html">
 <meta property="og:site_name" content="lyreal666&#39;s blog">
-<meta property="og:description" content="爱好编程的大三dog">
+<meta property="og:description" content="最近上操作系统课解决死锁一节时，碰到了银行家算法这个算法。由于这个算法涉及的概念比较多，所以一开始在用编程实现这个算法的时候有点不知道怎样下手，在查了一些资料后总算是比较完美的写出来，这篇文章主要梳理一下银行家算法的几个关键点。完整的实验的源代码和测试截图我放到github上了。如果对你有帮助，希望不要吝啬你的star。 银行家算法能解决可以什么问题其实我在学习编程的过程中，一直保持着这样一个原则">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.lyreal666.com/银行家算法-BankerAlgorithm/banker-algorithm-concept.png">
+<meta property="og:updated_time" content="2018-10-21T10:40:58.733Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="lyreal666&#39;s blog">
-<meta name="twitter:description" content="爱好编程的大三dog">
+<meta name="twitter:title" content="银行家算法(BankerAlgorithm)">
+<meta name="twitter:description" content="最近上操作系统课解决死锁一节时，碰到了银行家算法这个算法。由于这个算法涉及的概念比较多，所以一开始在用编程实现这个算法的时候有点不知道怎样下手，在查了一些资料后总算是比较完美的写出来，这篇文章主要梳理一下银行家算法的几个关键点。完整的实验的源代码和测试截图我放到github上了。如果对你有帮助，希望不要吝啬你的star。 银行家算法能解决可以什么问题其实我在学习编程的过程中，一直保持着这样一个原则">
+<meta name="twitter:image" content="http://www.lyreal666.com/银行家算法-BankerAlgorithm/banker-algorithm-concept.png">
 
 
 
@@ -119,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://www.lyreal666.com/"/>
+  <link rel="canonical" href="http://www.lyreal666.com/银行家算法-BankerAlgorithm.html"/>
 
 
 
 
 
-  <title>lyreal666's blog</title>
+  <title>银行家算法(BankerAlgorithm) | lyreal666's blog</title>
   
 
 
@@ -144,8 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -258,9 +260,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -290,9 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/银行家算法-BankerAlgorithm.html" itemprop="url">银行家算法(BankerAlgorithm)</a></h1>
+          <h1 class="post-title" itemprop="name headline">银行家算法(BankerAlgorithm)</h1>
         
 
         <div class="post-meta">
@@ -364,18 +364,32 @@
       
 
       
-        
-          
-          最近上操作系统课解决死锁一节时，碰到了银行家算法这个算法。由于这个算法涉及的概念比较多，所以一开始在用编程实现这个算法的时候有点不知道怎样下手，在查了一些资料后总算是比较完美的写出来，这篇文章主要梳理一下银行家算法的几个关键点。完整的实验的源代码和测试截图我放到github上了。如果对你有帮助，希望
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/银行家算法-BankerAlgorithm.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <p>最近上操作系统课解决死锁一节时，碰到了银行家算法这个算法。由于这个算法涉及的概念比较多，所以一开始在用编程实现这个算法的时候有点不知道怎样下手，在查了一些资料后总算是比较完美的写出来，这篇文章主要梳理一下银行家算法的几个关键点。完整的实验的源代码和测试截图我放到<a href="https://github.com/tjx666/osHomework/tree/master/experiment2/bankerAlgorithm" target="_blank" rel="noopener">github</a>上了。如果对你有帮助，希望不要吝啬你的star。</p>
+<h3 id="银行家算法能解决可以什么问题"><a href="#银行家算法能解决可以什么问题" class="headerlink" title="银行家算法能解决可以什么问题"></a>银行家算法能解决可以什么问题</h3><p>其实我在学习编程的过程中，一直保持着这样一个原则:</p>
+<blockquote>
+<p>学习一个新知识新技术，一定要搞懂它可以做什么或者能解决什么问题。</p>
+<p>如果你认为你已经学懂了，还是不知道它能干什么，可以不用继续研究它了，直接忘了它。</p>
+</blockquote>
+<p>银行家算法可以解决进程<strong>死锁</strong>的问题。</p>
+<p>什么是死锁？拿一个关于死锁的很有名的问题-<code>哲学家就餐</code>问题来说明好了:</p>
+<blockquote>
+<p>哲学家就餐问题可以这样表述，假设有五位哲学家围坐在一张圆形餐桌旁，做以下两件事情之一：吃饭，或者思考。吃东西的时候，他们就停止思考，思考的时候也停止吃东西。餐桌中间有一大碗意大利面，每两个哲学家之间有一只餐叉。因为用一只餐叉很难吃到意大利面，所以假设哲学家必须用两只餐叉吃东西。他们只能使用自己左右手边的那两只餐叉。哲学家就餐问题有时也用米饭和筷子而不是意大利面和餐叉来描述，因为很明显，吃米饭必须用两根筷子。</p>
+<p>哲学家从来不交谈，这就很危险，可能产生死锁，每个哲学家都拿着左手的餐叉，永远都在等右边的餐叉（或者相反）。即使没有死锁，也有可能发生资源耗尽。</p>
+</blockquote>
+<p>也就是说死锁就是由于陷入死锁的进程都在等待对方的资源，由于是相互等待对方结束，释放对方的资源，所以这个等待会永久持续下去，陷入死锁的进程无法结束。</p>
+<p>银行家算法之所以叫银行家算法，那是因为一开始就是用来解决银行家碰到的问题，假设有这么一个场景：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A开发商想借20亿, 已经借了2亿，还需要18亿。</span><br><span class="line">B开发商想借18亿，已经借了3亿， 还需要15亿。</span><br><span class="line">C开发商想借8亿，借了7亿，需要1亿。</span><br><span class="line">银行家剩余8亿。</span><br></pre></td></tr></table></figure>
+<p>作为一个银行家，肯定是想把钱借出去越多越好，满足所有开发商的需求，应该不会有人这么想吧：</p>
+<p>因为剩下8亿只能借给C开发商，借给C开发商后银行家剩下7亿，A开发商和B开发商都没法借了，其实银行家算法中把这种没法继续借给别的开发商的状态叫做不安全状态`，A和B都在等待对方释放资金，但是银行家剩余的钱对A和B都无法满足它们的尚需数，A和B陷入了永久等待，也就是死锁。</p>
+<p>像上面这样想其实是不合的，出现问题的原因是：<strong>你只想着银行家剩下多少，却没想过能从别人那里收回多少。</strong></p>
+<p>其实你借给C开发商后，因为C开发商已经满足了它最大需求8亿，它肯定是在有限时间内能够还回所有已经借的，即归还8亿，加上剩余的7亿，现在可以认为银行家有15亿。15亿借给B开发商，满足了它需要借的钱，所以可以回收已经借的3亿，就总共有了18亿，然后就可以借给A开发商了。这么算下来，银行家完全可以满足所有的开发商，找到了一个满足开发商需求的<code>安全序列</code>:</p>
+<p>C -&gt; B -&gt;A。</p>
+<p>银行家算法中把当前分配情况下能找到这么一个序列满足所有进程需求的状态叫做<code>安全状态</code>。</p>
+<p>也就是说如果银行家当前可以满足某开发商尚需数，那么可以借给他尚需数，并且在有限时间内回收所有借给它的，银行家剩余资源反而会变多。</p>
+<p>其实上面一已经讲到了银行家算法中的几个概念，<code>安全状态</code>,<code>不安全状态</code>，<code>安全序列</code>。</p>
+<h2 id="银行家算法中的一些概念"><a href="#银行家算法中的一些概念" class="headerlink" title="银行家算法中的一些概念"></a>银行家算法中的一些概念</h2><p>先上一张网上找的<a href="https://blog.csdn.net/s634772208/article/details/46324257" target="_blank" rel="noopener">某博主</a>的一张概念图:</p>
+<p><img src="/银行家算法-BankerAlgorithm/banker-algorithm-concept.png" alt="银行家算法概念图:"></p>
+
       
     </div>
     
@@ -389,293 +403,46 @@
     
     <div>
       
+        <div>
+
+    <div style="text-align:left;color: #666;font-size:14px;">(完)</div>
+
+</div>
+
+      
     </div>
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.lyreal666.com/SSH知识总结.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yuTengJing">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lyreal666's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/SSH知识总结.html" itemprop="url">SSH知识总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-20T13:51:00+08:00">
-                2018-10-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/algorithm/" rel="tag"># algorithm</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <p>最近部署博客和远程访问云主机经常性用到SSH这个协议，还遇到了一些问题，好在通过查资料都解决了；在查询资料的过程中发现很多文章都有些<code>错误</code>或者太过<code>简略</code>；所以我打算写下这篇文章介绍下SSH这个协议以及一些相关用法；</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/SSH知识总结.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/SSH知识总结.html" rel="next" title="SSH知识总结">
+                <i class="fa fa-chevron-left"></i> SSH知识总结
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-    <div>
-      
-    </div>
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.lyreal666.com/推荐一波chrome插件.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yuTengJing">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lyreal666's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/推荐一波chrome插件.html" itemprop="url">推荐一波chrome插件</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-16T14:50:22+08:00">
-                2018-10-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-          chrome插件是能够大大提高我们使用chrome时的操作和浏览体验的好东西；其实在我的大多数朋友中,除了少部分被我安利过的一些人,很多人甚至都不知道浏览器可以装插件。很多人在使用浏览器器时都有过各种不好的体验:各种形式的广告, 弹窗广告，视频中的广告，某些视频网站甚至是满屏的广告,就连百度的搜索结
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/推荐一波chrome插件.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-    <div>
-      
-    </div>
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -685,139 +452,11 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.lyreal666.com/使用hexo写博客啦.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yuTengJing">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lyreal666's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/使用hexo写博客啦.html" itemprop="url">使用hexo写博客啦</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-15T19:40:33+08:00">
-                2018-10-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          希望自己能坚持下去，分享自己积累的点点滴滴。
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/使用hexo写博客啦.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-    <div>
-      
-    </div>
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -825,6 +464,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -845,8 +488,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -926,6 +578,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#银行家算法能解决可以什么问题"><span class="nav-number">1.</span> <span class="nav-text">银行家算法能解决可以什么问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#银行家算法中的一些概念"><span class="nav-number"></span> <span class="nav-text">银行家算法中的一些概念</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1060,6 +728,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
