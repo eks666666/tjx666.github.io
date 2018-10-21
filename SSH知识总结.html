@@ -87,13 +87,16 @@
 <meta property="og:site_name" content="lyreal666&#39;s blog">
 <meta property="og:description" content="最近部署博客和远程访问云主机经常性用到SSH这个协议，还遇到了一些问题，好在通过查资料都解决了；在查询资料的过程中发现很多文章都有些错误或者太过简略；所以我打算写下这篇文章介绍下SSH这个协议以及一些相关用法；">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.lyreal666.com/SSH知识总结/SSH-pwd-check.png">
-<meta property="og:image" content="http://www.lyreal666.com/SSH知识总结/SSH-publickey-check.png">
-<meta property="og:updated_time" content="2018-10-21T09:03:18.983Z">
+<meta property="og:image" content="http://www.lyreal666.com/SSH知识总结/encrypt.jpg">
+<meta property="og:image" content="http://www.lyreal666.com/SSH知识总结/exchangeKey.jpg">
+<meta property="og:image" content="http://www.lyreal666.com/SSH知识总结/ssh-pwd-login.jpg">
+<meta property="og:image" content="http://www.lyreal666.com/SSH知识总结/ssh-public-key-login.jpg">
+<meta property="og:image" content="http://www.lyreal666.com/SSH知识总结/github-add-sshkey.jpg">
+<meta property="og:updated_time" content="2018-10-21T12:56:38.464Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSH知识总结">
 <meta name="twitter:description" content="最近部署博客和远程访问云主机经常性用到SSH这个协议，还遇到了一些问题，好在通过查资料都解决了；在查询资料的过程中发现很多文章都有些错误或者太过简略；所以我打算写下这篇文章介绍下SSH这个协议以及一些相关用法；">
-<meta name="twitter:image" content="http://www.lyreal666.com/SSH知识总结/SSH-pwd-check.png">
+<meta name="twitter:image" content="http://www.lyreal666.com/SSH知识总结/encrypt.jpg">
 
 
 
@@ -382,11 +385,11 @@
 <p>什么是中间人攻击?     举个例子就明白了: </p>
 <p>中间人冒充服务器接收到客户端发送的用户名和密码，即便是客户端通过hash加密，中间人无法获取真正的密码，但是服务器它认的只是你传输的数据,中间人可以直接把获取的用户名密码或者hash加密过的密码发送给服务器，从而伪装成客户对服务器发送数据；</p>
 <p>SSH协议也能够防止DNS欺骗和IP欺骗；使用SSH，还有一个额外的好处就是传输的数据是经过压缩的，所以可以加快传输的速度。SSH有很多功能，它既可以代替telnet，又可以为ftp, pop甚至为ppp提供一个安全的”通道” 。</p>
-<h2 id="SSH的验证方式"><a href="#SSH的验证方式" class="headerlink" title="SSH的验证方式"></a>SSH的验证方式</h2><p>要想看懂SSH验证方式必须先懂几个概念: <code>对称加密</code>,<code>非对称加密</code>；这里简要介绍一下:</p>
+<h2 id="SSH的方式加密"><a href="#SSH的方式加密" class="headerlink" title="SSH的方式加密"></a>SSH的方式加密</h2><p>要想看懂SSH的加密方式必须先懂几个概念: <code>对称加密</code>,<code>非对称加密</code>；这里简要介绍一下:</p>
 <ol>
-<li><p>对称加密: 加密和解密用同一把密钥的加密方式。就是大家最能想到的那种普通的加密方式, 用一个密码加密，同一个密码解密，这种加密方式的加密强度和密码的长度有关，密码越长越1mb长度的密码肯定比1bit密码强度高，常用来加密传输的数据；</p>
+<li><p>对称加密: 加密和解密用同一把密钥的加密方式。就是大家最能想到的那种普通的加密方式, 用一个密码加密，同一个密码解密，这种加密方式的加密强度和密码的长度有关，密码越长越1mb长度的密码肯定比1bit密码强度高，常用来加密传输的数据,ssh协议中收发文件内容肯定采用的是对称加密。</p>
 </li>
-<li><p>非对称加密: 非对称加密指的是加密和解密用的不是一把钥匙的加密方式；一把叫私钥(privateKey)，不能公开，用来解密或签名；一把叫公钥(publicKey)，可以公开在网络上传输，用来解密或验证签名; 加密数据既可以用公钥也可以用私钥，但必须使用同一个算法下对应的私钥或公钥才能解密；它们总是成对的，一个加密，一个解密；由于私钥总是不公开的，所以非对称加密是很可靠的。但是解密速度比较慢，所以常用于交换信息，比如加密对称加密的密码</p>
+<li><p>非对称加密: 非对称加密指的是加密和解密用的不是一把钥匙的加密方式；一把叫私钥(privateKey)，不能公开，用来解密或签名；一把叫公钥(publicKey)，可以公开在网络上传输，用来加密或验证签名; 加密数据既可以用公钥也可以用私钥，但必须使用同一个算法下对应的私钥或公钥才能解密；它们总是成对的，一个加密，一个解密；由于私钥总是不公开的，所以非对称加密是很可靠的。但是解密速度比较慢，所以常用于交换信息，比如ssh中交换公钥，发送命令信息。</p>
 <p>加密和签名是非对称加密的两个常见应用场景, 它们是有区别的:</p>
 <ol>
 <li><p>加密时: </p>
@@ -397,30 +400,40 @@
 <li><p>签名时:</p>
 <p> 私钥加密内容    =&gt;    签名；</p>
 <p> 公钥解密签名   =&gt;    解密得到的内容比对发送过来的内容；</p>
-<p>签名是为了接收方确定接收内容来源是否可靠；如果采用用公钥加密私钥解密，因为公钥是公开的, 那所有获得公钥的人都可以冒充发送方发送数据给接收方。可靠的发送方用私钥加密, 接收方用保存的可信赖方的公钥解密，如果解密内容和接收内容一样，来源可靠，不可信赖来源发送的内容用我保存的可信赖方的公钥解密是和内容不一样的，从而确保接收的内容的来源是可靠的;</p>
-<p>​           </p>
+<p>签名是为了接收方确定接收内容来源是否可靠；如果采用用公钥加密私钥解密，因为公钥是公开的, 那所有获得公钥的人都可以冒充发送方发送数据给接收方。可靠的发送方用私钥加密, 接收方用保存的可信赖方的公钥解密，如果解密内容和接收内容一样，来源可靠，不可信赖来源发送的内容用我保存的可信赖方的公钥解密是和内容不一样的，从而确保接收的内容的来源是可靠的;     </p>
 </li>
 </ol>
 </li>
 </ol>
-<p>SSH协议的验证方式有两种， 都有用到<code>非对称加密</code>:</p>
+<p>保证SSH安全性的方法，简单来说就是客户端和服务端各自生成一套私钥和公钥，并且互相交换公钥，这样每一条发出的数据都可以用对方的公钥来加密，对方收到后再用自己的私钥来解密。</p>
+<p><img src="/SSH知识总结/encrypt.jpg" alt="SSH传输消息的加密方式"></p>
+<h2 id="SSH连接创建过程"><a href="#SSH连接创建过程" class="headerlink" title="SSH连接创建过程"></a>SSH连接创建过程</h2><p>由上一张图可以看出来，两台机器除了各自的一套公、私钥之外，还保存了对方的公钥，因此必然存在一个交换各自公钥的步骤。实际上并不是简单的各自发送公钥，而是存在一些专门的算法。这一步在首次链接时、数据传送之前发生。</p>
+<p><img src="/SSH知识总结/exchangeKey.jpg" alt="SSH连接创建"></p>
+<h2 id="SSH的验证方式"><a href="#SSH的验证方式" class="headerlink" title="SSH的验证方式"></a>SSH的验证方式</h2><p>SSH协议的验证方式有两种， 都有用到<code>非对称加密</code>:</p>
 <ol>
 <li>用户名密码登入。 使用公钥对用户密码加密。</li>
 <li>公钥认证。和数字签名原理一样，只不过用来验证的内容是服务器发送的随机字符串；</li>
 </ol>
-<h4 id="用户名密码登入"><a href="#用户名密码登入" class="headerlink" title="用户名密码登入"></a>用户名密码登入</h4><p><img src="/SSH知识总结/SSH-pwd-check.png" alt="用户名密码验证"></p>
+<h4 id="用户名密码登入"><a href="#用户名密码登入" class="headerlink" title="用户名密码登入"></a>用户名密码登入</h4><p><img src="/SSH知识总结/ssh-pwd-login.jpg" alt="用户名密码验证"></p>
 <p>说明：</p>
-<p>　　（1） 当客户端发起SSH请求，服务器会把自己的公钥发送给用户；</p>
-<p>　　（2） 用户会根据服务器发来的公钥对密码进行加密；</p>
-<p>　　（3） 加密后的信息回传给服务器，服务器用自己的私钥解密，如果密码正确，则用户登录成功。</p>
-<h4 id="公钥验证（解密"><a href="#公钥验证（解密" class="headerlink" title="公钥验证（解密)"></a>公钥验证（解密)</h4><p><img src="/SSH知识总结/SSH-publickey-check.png" alt="公钥验证">说明：</p>
-<p>　　（1） 首先在客户端生成一对密钥（ssh-keygen）；</p>
-<p>　　（2） 并将客户端的公钥使用ssh-copy-id命令拷贝到服务端；</p>
-<p>　　（3） 当客户端再次发送一个连接请求，包括ip、用户名；</p>
-<p>　　（4） 服务端得到客户端的请求后，会到authorized_keys中查找，如果有响应的IP和用户，就会随机生成一个字符串，例如：qwer；</p>
-<p>　　（5） 服务端将使用客户端拷贝过来的公钥进行加密，然后发送给客户端；</p>
-<p>　　（6） 得到服务端发来的消息后，客户端会使用私钥进行解密，然后将解密后的字符串发送给服务端；</p>
-<p>　　（7） 服务端接受到客户端发来的字符串后，跟之前的字符串进行对比，如果一致，就允许免密码登录。</p>
+<ol>
+<li>服务端收到登录请求后，首先互换公钥，详细步骤如上一节所述。</li>
+<li>客户端用服务端的公钥加密账号密码并发送</li>
+<li>服务端用自己的秘钥解密后得到账号密码，然后进行验证</li>
+<li>服务端用客户端的公钥加密验证结果并返回</li>
+<li>客户端用自己的秘钥解密后得到验证结果
+　　</li>
+</ol>
+<h4 id="公钥验证（解密"><a href="#公钥验证（解密" class="headerlink" title="公钥验证（解密)"></a>公钥验证（解密)</h4><p><img src="/SSH知识总结/ssh-public-key-login.jpg" alt="公钥验证">说明：</p>
+<ol>
+<li>客户端用户必须手动地将自己的公钥添加到服务器一个名叫authorized_keys的文件里，顾名思义，这个文件保存了所有可以远程登录的机器的公钥。</li>
+<li>客户端发起登录请求，并且发送一个自己公钥的指纹（具有唯一性，但不是公钥）</li>
+<li>服务端根据指纹检测此公钥是否保存在authorized_keys中</li>
+<li>若存在，服务端便生成一段随机字符串，然后利用客户端公钥加密并返回</li>
+<li>客户端收到后用自己的私钥解密，再利用服务端公钥加密后发回</li>
+<li>服务端收到后用自己的私钥解密，如果为同一字符串，则验证通过
+　　</li>
+</ol>
 <h2 id="SSH实际应用"><a href="#SSH实际应用" class="headerlink" title="SSH实际应用"></a>SSH实际应用</h2><p>实际应用中我们常用SSH来安全的进行远程控制，或者传输文件；github或coding等远程git仓库都可以选择使用SSH方式进行上传下载；</p>
 <h3 id="远程控制"><a href="#远程控制" class="headerlink" title="远程控制"></a>远程控制</h3><p>使用ssh进行远程控制要求服务器一定要安装openssh-server或sshd。可以通过下面命令测试linux系统有没有安装ssh服务器:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service sshd status</span><br><span class="line"><span class="meta">#</span> 出现 Loader error(Reason: no such file or directory) 表示没安装</span><br><span class="line"><span class="meta">#</span> 出现 Active: inactive(dead) 表示安装了，但是没开启</span><br></pre></td></tr></table></figure>
@@ -465,7 +478,8 @@
 <ol>
 <li><p>在本地生成密钥, 和生成密钥方式上面的一模一样；</p>
 </li>
-<li><p>拷贝密钥到托管平台，一般在托管平台的设置中找找就能找到添加SSH密钥的地方；</p>
+<li><p>拷贝密钥到托管平台，一般在托管平台的设置中找找就能找到添加SSH密钥的地方。</p>
+<p><img src="/SSH知识总结/github-add-sshkey.jpg" alt="github添加publicKey"></p>
 </li>
 <li><p>使用<code>ssh -T git@hostname</code>命令测试连接是否成功比如:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">lyreal666@DESKTOP-FMIHTUE MINGW64 ~/.ssh</span><br><span class="line"><span class="meta">$</span> ssh -T gitss@github.com</span><br><span class="line">gitss@github.com: Permission denied (publickey).</span><br><span class="line"></span><br><span class="line">lyreal666@DESKTOP-FMIHTUE MINGW64 ~/.ssh</span><br><span class="line"><span class="meta">$</span> ssh -T git@github.com</span><br><span class="line">Hi tjx666! You've successfully authenticated, but GitHub does not provide shell access.</span><br><span class="line"></span><br><span class="line">lyreal666@DESKTOP-FMIHTUE MINGW64 ~/.ssh</span><br><span class="line"><span class="meta">$</span> ssh -T git@git.coding.net</span><br><span class="line">Coding 提示: Hello tjx666, You've connected to Coding.net via SSH. This is a personal key.</span><br><span class="line">tjx666，你好，你已经通过 SSH 协议认证 Coding.net 服务，这是一个个人公钥</span><br><span class="line"></span><br><span class="line">lyreal666@DESKTOP-FMIHTUE MINGW64 ~/.ssh</span><br><span class="line"><span class="meta">$</span> ssh -T -v gitss@github.com</span><br><span class="line">OpenSSH_7.7p1, OpenSSL 1.0.2o  27 Mar 2018</span><br><span class="line">debug1: Reading configuration data /etc/ssh/ssh_config</span><br><span class="line">debug1: Connecting to github.com [192.30.253.113] port 22.</span><br><span class="line">debug1: Connection established.</span><br><span class="line">debug1: identity file /c/Users/lyreal666/.ssh/id_rsa type 0</span><br><span class="line">debug1: key_load_public: No such file or directory</span><br></pre></td></tr></table></figure>
@@ -717,7 +731,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是SSH"><span class="nav-number">1.</span> <span class="nav-text">什么是SSH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH的验证方式"><span class="nav-number">2.</span> <span class="nav-text">SSH的验证方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用户名密码登入"><span class="nav-number">2.0.1.</span> <span class="nav-text">用户名密码登入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#公钥验证（解密"><span class="nav-number">2.0.2.</span> <span class="nav-text">公钥验证（解密)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH实际应用"><span class="nav-number">3.</span> <span class="nav-text">SSH实际应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#远程控制"><span class="nav-number">3.1.</span> <span class="nav-text">远程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步-生成密钥对"><span class="nav-number">3.1.1.</span> <span class="nav-text">第一步: 生成密钥对</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二步-把公钥放到服务器上"><span class="nav-number">3.1.2.</span> <span class="nav-text">第二步: 把公钥放到服务器上</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git远程托管平台如何配置免密码上传文件"><span class="nav-number">3.2.</span> <span class="nav-text">Git远程托管平台如何配置免密码上传文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh-add"><span class="nav-number">3.3.</span> <span class="nav-text">ssh-add</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聊聊-ssh-文件夹"><span class="nav-number">3.4.</span> <span class="nav-text">聊聊~/.ssh/文件夹</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是SSH"><span class="nav-number">1.</span> <span class="nav-text">什么是SSH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH的方式加密"><span class="nav-number">2.</span> <span class="nav-text">SSH的方式加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH连接创建过程"><span class="nav-number">3.</span> <span class="nav-text">SSH连接创建过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH的验证方式"><span class="nav-number">4.</span> <span class="nav-text">SSH的验证方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用户名密码登入"><span class="nav-number">4.0.1.</span> <span class="nav-text">用户名密码登入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#公钥验证（解密"><span class="nav-number">4.0.2.</span> <span class="nav-text">公钥验证（解密)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH实际应用"><span class="nav-number">5.</span> <span class="nav-text">SSH实际应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#远程控制"><span class="nav-number">5.1.</span> <span class="nav-text">远程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步-生成密钥对"><span class="nav-number">5.1.1.</span> <span class="nav-text">第一步: 生成密钥对</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二步-把公钥放到服务器上"><span class="nav-number">5.1.2.</span> <span class="nav-text">第二步: 把公钥放到服务器上</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git远程托管平台如何配置免密码上传文件"><span class="nav-number">5.2.</span> <span class="nav-text">Git远程托管平台如何配置免密码上传文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh-add"><span class="nav-number">5.3.</span> <span class="nav-text">ssh-add</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聊聊-ssh-文件夹"><span class="nav-number">5.4.</span> <span class="nav-text">聊聊~/.ssh/文件夹</span></a></li></ol></li></ol></div>
             
 
           </div>
