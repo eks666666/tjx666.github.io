@@ -1,4 +1,3 @@
-http://www.lyreal666.com/jdk和jre.html
 http://www.lyreal666.com/在 Windows 上打造体验绝佳的 Linux 终端（非 wsl）.html
 http://www.lyreal666.com/MUL-HRRF.html
 http://www.lyreal666.com/vscode调教指南（三）.html
