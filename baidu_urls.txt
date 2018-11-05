@@ -1,3 +1,4 @@
+http://www.lyreal666.com/正确理解hashcode.html
 http://www.lyreal666.com/java基础之数据类型.html
 http://www.lyreal666.com/优秀站点汇总.html
 http://www.lyreal666.com/java学习资源汇总.html
